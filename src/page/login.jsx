@@ -1,25 +1,42 @@
+
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 function Login() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const formsubmit=(e)=>
-  {
+  //const [username, setName] = useState('')
+  //const [email, setEmail] = useState('')
+  //const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+  const [formdata, setFormdata] = useState({
+    username: "",
+    email: "",
+    password: ""
+  })
+  function handlechange(e) {
+    setFormdata({
+      ...formdata,
+      [e.target.name]: e.target.value
+    })
+  }
+  const formsubmit = (e) => {
     e.preventDefault()
-    console.log(name,email,password)
+    console.log(formdata)
+    addListener("login successfully")
+    navigate('/dashboard',{
+      state:formdata
+    });
   }
   return (
     <div>
       <h1>Login Page</h1>
       <form onSubmit={formsubmit}>
-        <label>Name:</label>
-        <input type="text" placeholder="Enter Name" value={name} onChange={(e) => setName(e.target.value)} required/>
+        <label>Username:</label>
+        <input type="text" name="username" placeholder="Enter Name"  onChange={handlechange}  />
         <br /><br />
         <label>Email:</label>
-        <input type="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input type="email" name="email" placeholder="Enter Email"  onChange={handlechange}/>
         <br /><br />
         <label>Password:</label>
-        <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)}required />
+        <input type="password" name="password" placeholder="Enter Password"  onChange={handlechange} />
         <br /><br />
         <button type="submit">Submit</button>
       </form>
