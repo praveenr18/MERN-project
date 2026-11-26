@@ -29,7 +29,7 @@ function Login() {
     <div>
       <h1>Login Page</h1>
       <form onSubmit={formsubmit}>
-        <label>Username:</label>
+        <label>name:</label>
         <input type="text" name="username" placeholder="Enter Name"  onChange={handlechange}  />
         <br /><br />
         <label>Email:</label>
