@@ -20,7 +20,7 @@ function Login() {
   const formsubmit = (e) => {
     e.preventDefault()
     console.log(formdata)
-    addListener("login successfully")
+    alert("login successfully")
     navigate('/dashboard',{
       state:formdata
     });
