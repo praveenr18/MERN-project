@@ -1,46 +1,54 @@
 
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 function Login() {
-  //const [username, setName] = useState('')
-  //const [email, setEmail] = useState('')
-  //const [password, setPassword] = useState('')
-  const navigate = useNavigate();
-  const [formdata, setFormdata] = useState({
-    username: "",
-    email: "",
-    password: ""
-  })
-  function handlechange(e) {
-    setFormdata({
-      ...formdata,
-      [e.target.name]: e.target.value
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [logindata, setFormdata] = useState({
+        username: "",
+        password: ""
     })
-  }
-  const formsubmit = (e) => {
-    e.preventDefault()
-    console.log(formdata)
-    alert("login successfully")
-    navigate('/dashboard',{
-      state:formdata
-    });
-  }
-  return (
-    <div>
-      <h1>Login Page</h1>
-      <form onSubmit={formsubmit}>
-        <label>Username:</label>
-        <input type="text" name="username" placeholder="Enter Name"  onChange={handlechange}  />
-        <br /><br />
-        <label>Email:</label>
-        <input type="email" name="email" placeholder="Enter Email"  onChange={handlechange}/>
-        <br /><br />
-        <label>Password:</label>
-        <input type="password" name="password" placeholder="Enter Password"  onChange={handlechange} />
-        <br /><br />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  )
+    function handleChange(e) {
+        setFormdata({
+            ...logindata,
+            [e.target.name]: e.target.value
+        })
+    }
+    const handlesubmit = (event) => {
+        event.preventDefault()
+        const registerdata = location.state
+        console.log("Login data", logindata)
+        console.log("Register data", registerdata)
+        if (
+            registerdata &&
+            logindata.username === registerdata.name &&
+            logindata.password === registerdata.password
+        ) {
+            alert("Login successfully")
+            navigate("/dashboard", {
+                state: logindata
+            })
+        } else {
+            alert("Invalid Credentials")
+        }
+    }
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-900">
+            <div className="bg-white p-7 shadow-lg w-99">
+                <h1 className="text-3xl font-bold text-center mb-6 text-green-600">
+                    Login Form
+                </h1>
+                <form onSubmit={handlesubmit}>
+                    <label className="block mb-2"> Username </label>
+                    <input className="w-full border p-2 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter username" type="text" name="username" onChange={handleChange} required />
+                    <br />
+                    <label className="block mb-2"> Password </label>
+                    <input  className="w-full border p-2 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"  placeholder="Enter password" type="password" name="password" onChange={handleChange}  required />
+                    <br /><br />
+                    <button type="submit"  className="w-full bg-green-400 text-white p-2 rounded-lg hover:bg-red-700 transition" >  Login  </button>
+                </form>
+            </div>
+        </div>
+    )
 }
 export default Login
