@@ -39,7 +39,7 @@ function Login() {
                     Login Form
                 </h1>
                 <form onSubmit={handlesubmit}>
-                    <label className="block mb-2"> Username </label>
+                    <label className="block mb-2"> Username :</label>
                     <input className="w-full border p-2 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter username" type="text" name="username" onChange={handleChange} required />
                     <br />
                     <label className="block mb-2"> Password </label>
